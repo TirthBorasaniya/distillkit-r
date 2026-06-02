@@ -1,0 +1,26 @@
+model_name: "Qwen/Qwen3-1.7B-Instruct"
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.05
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+per_device_train_batch: 4
+gradient_accumulation: 8
+num_train_epochs: 3
+learning_rate: 2.0e-4
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+max_seq_length: 4096
+save_steps: 500
+logging_steps: 50
+eval_steps: 500
+output_dir: checkpoints/sft_seed
+bf16: true
+gradient_checkpointing: true
+dataloader_num_workers: 4

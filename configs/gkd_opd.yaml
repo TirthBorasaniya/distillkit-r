@@ -1,0 +1,17 @@
+teacher_model_name: "Qwen/Qwen3-8B-Instruct"
+sft_checkpoint_path: checkpoints/sft_seed
+lmbda: 1.0
+beta: 1.0
+temperature: 0.9
+max_new_tokens: 512
+per_device_train_batch: 2
+gradient_accumulation: 4
+max_steps: 500
+learning_rate: 5.0e-5
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+save_steps: 100
+logging_steps: 25
+output_dir: checkpoints/opd_final
+bf16: true
+gradient_checkpointing: true
