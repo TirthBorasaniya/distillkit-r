@@ -44,7 +44,7 @@ Stage 2 — OPD        : trl.experimental.gkd.GKDTrainer,  500 steps
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/distillkit-r
+git clone https://github.com/TirthBorasaniya/distillkit-r
 cd distillkit-r
 
 bash scripts/setup_env.sh
@@ -84,11 +84,11 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 model = AutoModelForCausalLM.from_pretrained(
-    "<your-username>/distillkit-r-qwen3-1.7b",
+    "TirthBorasaniya/distillkit-r-qwen3-1.7b",
     torch_dtype=torch.bfloat16,
     device_map="cuda",
 )
-tokenizer = AutoTokenizer.from_pretrained("<your-username>/distillkit-r-qwen3-1.7b")
+tokenizer = AutoTokenizer.from_pretrained("TirthBorasaniya/distillkit-r-qwen3-1.7b")
 
 messages = [
     {"role": "system", "content": "Think step by step."},
@@ -147,11 +147,11 @@ All credentials are loaded from environment variables. Pre-commit hooks enforce 
 ## Citation
 
 ```bibtex
-@misc{distillkitr2025,
+@misc{distillkitr2026,
   title        = {distillkit-r: On-Policy Distillation of a Reasoning Model},
-  author       = {Tirth Patel},
-  year         = {2025},
-  howpublished = {\url{https://github.com/<your-username>/distillkit-r}},
+  author       = {Tirth Borasaniya},
+  year         = {2026},
+  howpublished = {\url{https://github.com/TirthBorasaniya/distillkit-r}},
   note         = {Implements GKD (arXiv 2306.13649) as adopted by Thinking Machines Lab, Oct 2025}
 }
 ```
