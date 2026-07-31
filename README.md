@@ -1,5 +1,13 @@
 # distillkit-r
 
+## Status
+
+**Pre-registered, not yet run.** The two-stage pipeline is implemented end to end, and the
+reverse-KL objective is unit-tested. The SFT seed and OPD stages have not been executed;
+evaluation on MATH-500, GSM8K, and AIME 2024 is pending compute access. The `beta` and
+`lmbda` ablations are pre-registered protocols, with hyperparameters and expected outcomes
+fixed ahead of any run rather than reported as measurements.
+
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![torch 2.5.1](https://img.shields.io/badge/torch-2.5.1-orange.svg)](https://pytorch.org/)
@@ -128,20 +136,18 @@ Key parameters:
 
 ---
 
-## Design decisions
-
-See [DECISIONS.md](DECISIONS.md) for rationale on: KL direction, on-policy fraction,
-tokenizer family constraint, and ablation results.
-
----
-
 ## Security
 
 Model weights are published to the Hugging Face Hub — not stored in this repository.
 All credentials are loaded from environment variables; see `.env.example` for the
-required variables. The hooks in [.pre-commit-config.yaml](.pre-commit-config.yaml)
-enforce a 500 KB file-size limit and scan for secrets and private keys on every
-commit — run `pre-commit install` after cloning to activate them.
+required variables.
+
+Every commit is gated by the hooks in [.pre-commit-config.yaml](.pre-commit-config.yaml):
+gitleaks and detect-secrets scan for credentials against the committed
+[.secrets.baseline](.secrets.baseline), a 500 KB file-size cap blocks model weights, and
+`detect-private-key` rejects key material. `pre-commit run --all-files` passes, and a
+gitleaks scan over full history reports no leaks. Run `pre-commit install` after cloning
+to enable the hooks locally.
 
 ---
 
