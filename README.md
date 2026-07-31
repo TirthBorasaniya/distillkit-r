@@ -8,6 +8,15 @@ evaluation on MATH-500, GSM8K, and AIME 2024 is pending compute access. The `bet
 `lmbda` ablations are pre-registered protocols, with hyperparameters and expected outcomes
 fixed ahead of any run rather than reported as measurements.
 
+## Attribution
+
+The objective is not original: GKD ([arXiv:2306.13649](https://arxiv.org/abs/2306.13649)) and its
+reverse-KL on-policy variant come from the published recipe adopted in Qwen3, MiMo-V2, and Thinking
+Machines Lab (Oct 2025). The engineering in this repo is the two-stage SFT-seed-then-OPD structure,
+the GPU-hours instrumentation, checkpointing, `reverse_kl` as a separately unit-tested pure function,
+and the tokenizer-family guard. Two TRL constraints are documented from source rather than from any
+paper: the `trl.experimental.gkd` import path and the cross-tokenizer breakage (TRL issue #4562).
+
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![torch 2.5.1](https://img.shields.io/badge/torch-2.5.1-orange.svg)](https://pytorch.org/)
@@ -87,16 +96,22 @@ bash scripts/run_eval.sh
 
 ## Inference
 
+Loads a local checkpoint produced by stage 2, saved with `o_merge_before_save=True` so the
+LoRA is merged into the base weights and the directory loads standalone. No model has been
+published to the Hugging Face Hub yet; see [Status](#status).
+
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
+CHECKPOINT = "checkpoints/opd_final/step_500"
+
 model = AutoModelForCausalLM.from_pretrained(
-    "TirthBorasaniya/distillkit-r-qwen3-1.7b",
+    CHECKPOINT,
     torch_dtype=torch.bfloat16,
     device_map="cuda",
 )
-tokenizer = AutoTokenizer.from_pretrained("TirthBorasaniya/distillkit-r-qwen3-1.7b")
+tokenizer = AutoTokenizer.from_pretrained(CHECKPOINT)
 
 messages = [
     {"role": "system", "content": "Think step by step."},

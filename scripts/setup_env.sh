@@ -9,5 +9,5 @@ pip install -e ".[train,eval,dev]"
 cp .env.example .env
 pip install pre-commit
 pre-commit install
-detect-secrets scan > .secrets.baseline
+# .secrets.baseline is committed; do not regenerate here or local allowlist entries are lost.
 echo "Setup complete. Edit .env before running training."
