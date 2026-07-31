@@ -137,10 +137,11 @@ tokenizer family constraint, and ablation results.
 
 ## Security
 
-See [SECURITY.md](SECURITY.md).
 Model weights are published to the Hugging Face Hub — not stored in this repository.
-All credentials are loaded from environment variables. Pre-commit hooks enforce a
-500 KB file-size limit and scan for secrets on every commit.
+All credentials are loaded from environment variables; see `.env.example` for the
+required variables. The hooks in [.pre-commit-config.yaml](.pre-commit-config.yaml)
+enforce a 500 KB file-size limit and scan for secrets and private keys on every
+commit — run `pre-commit install` after cloning to activate them.
 
 ---
 

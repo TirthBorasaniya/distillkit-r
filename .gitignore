@@ -3,6 +3,13 @@
 # ============================================================
 CLAUDE.md
 SECURITY.md
+CLAUDE.local.md
+.claude/
+.cursorrules
+.cursor/
+.aider*
+.continue/
+.windsurfrules
 
 # ============================================================
 # Python
@@ -19,6 +26,12 @@ dist/
 .venv/
 venv/
 env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
 
 # ============================================================
 # Secrets — NEVER commit
@@ -50,7 +63,9 @@ service_account*.json
 # ============================================================
 checkpoints/
 output_*/
+outputs/
 runs/
+lightning_logs/
 adapter_model/
 merged_model/
 trainer_state.json
@@ -88,6 +103,9 @@ hf_cache/
 mlruns/
 wandb/
 *.tfevents.*
+*.db
+*.sqlite
+*.sqlite3
 
 # ============================================================
 # Jupyter — clear output before committing notebooks
